@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalentAI — Registrar Nueva Postulación</title>
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="postulacion">
+
+  <div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div>
+        <div class="sidebar-header">
+          <div class="brand-box">
+            <div class="brand-icon">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <div class="brand-info">
+              <h2>TalentAI</h2>
+              <span>Selección Inteligente</span>
+            </div>
+          </div>
+          <button class="toggle-sidebar-btn" id="sidebar-toggle" title="Contraer/Expandir Menú">
+            <i class="fa-solid fa-angles-left" id="toggle-icon"></i>
+          </button>
+        </div>
+
+        <ul class="sidebar-menu">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">
+              <i class="fa-solid fa-chart-pie"></i>
+              <span class="nav-text">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="candidatos.html" class="nav-link">
+              <i class="fa-solid fa-users"></i>
+              <span class="nav-text">Candidatos</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="postulacion.html" class="nav-link active">
+              <i class="fa-solid fa-user-plus"></i>
+              <span class="nav-text">Nueva Postulación</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="vacantes.html" class="nav-link">
+              <i class="fa-solid fa-briefcase"></i>
+              <span class="nav-text">Vacantes</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="clasificacion.html" class="nav-link">
+              <i class="fa-solid fa-layer-group"></i>
+              <span class="nav-text">Clasificación</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="revisiones.html" class="nav-link">
+              <i class="fa-solid fa-clipboard-check"></i>
+              <span class="nav-text">Revisiones</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="metricas.html" class="nav-link">
+              <i class="fa-solid fa-chart-line"></i>
+              <span class="nav-text">Métricas</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="integraciones.html" class="nav-link">
+              <i class="fa-solid fa-network-wired"></i>
+              <span class="nav-text">Integraciones</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="configuracion.html" class="nav-link">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span class="nav-text">Configuración</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-box">
+          <div class="avatar">RH</div>
+          <div class="user-info">
+            <h4>Equipo RRHH</h4>
+            <p>Administrador</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <div class="topbar-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="top-search-input" placeholder="Buscar candidato o habilidad...">
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <button class="icon-btn" id="notif-bell-btn" title="Notificaciones">
+            <i class="fa-regular fa-bell"></i>
+            <span class="notification-badge" id="notif-count">3</span>
+          </button>
+
+          <div class="notification-dropdown" id="notification-dropdown">
+            <div class="notif-header">
+              <h4>Centro de Notificaciones</h4>
+              <button class="btn btn-sm btn-secondary" onclick="markAllNotificationsRead()">Marcar leídas</button>
+            </div>
+            <div class="notif-list" id="notif-list-container"></div>
+          </div>
+
+          <button class="icon-btn" id="theme-toggle-btn" title="Cambiar Tema Dark/Light">
+            <i class="fa-regular fa-moon" id="theme-icon"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- CONTENT AREA -->
+      <main class="content-area">
+        <div class="section-header">
+          <div>
+            <h1>Registrar Nueva Postulación</h1>
+            <p>Formulario de ingreso y análisis automatizado de Hoja de Vida en PDF</p>
+          </div>
+        </div>
+
+        <div style="max-width: 750px; margin: 0 auto;">
+          <div class="card">
+            <form id="application-form" onsubmit="handleFormSubmit(event)">
+              <div class="form-group">
+                <label for="app-name">Nombre Completo *</label>
+                <input type="text" id="app-name" class="form-control" placeholder="Ej: Laura Gómez" required>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+                <div class="form-group">
+                  <label for="app-email">Correo Electrónico *</label>
+                  <input type="email" id="app-email" class="form-control" placeholder="laura@ejemplo.com" required>
+                </div>
+                <div class="form-group">
+                  <label for="app-phone">Número Telefónico *</label>
+                  <input type="tel" id="app-phone" class="form-control" placeholder="+57 300 123 4567" required>
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+                <div class="form-group">
+                  <label for="app-vacancy">Vacante de Interés *</label>
+                  <select id="app-vacancy" class="form-control" required>
+                    <option value="">Seleccione una vacante...</option>
+                    <option value="Backend Developer">Backend Developer</option>
+                    <option value="Frontend Developer">Frontend Developer</option>
+                    <option value="Data Analyst">Data Analyst</option>
+                    <option value="DevOps Engineer">DevOps Engineer</option>
+                    <option value="QA Engineer">QA Engineer</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="app-exp">Años de Experiencia *</label>
+                  <input type="number" id="app-exp" class="form-control" min="0" max="30" placeholder="Ej: 3" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="app-skills">Tecnologías y Conocimientos Principales</label>
+                <input type="text" id="app-skills" class="form-control" placeholder="Ej: Java, Spring Boot, PostgreSQL, Docker">
+              </div>
+
+              <div class="form-group">
+                <label>Carga de Hoja de Vida (PDF) *</label>
+                <div class="upload-dropzone" onclick="document.getElementById('app-pdf').click()">
+                  <i class="fa-solid fa-file-pdf"></i>
+                  <h4 id="pdf-filename-display">Arrastra o haz clic para subir el archivo PDF</h4>
+                  <p style="font-size:0.8rem; color:var(--text-muted);">Formato soportado: .pdf (Máx. 10MB)</p>
+                  <input type="file" id="app-pdf" accept=".pdf" style="display:none;" onchange="handleFileSelect(event)" required>
+                </div>
+              </div>
+
+              <div class="form-group" style="display:flex; align-items:center; gap:8px;">
+                <input type="checkbox" id="app-terms" required>
+                <label for="app-terms" style="margin-bottom:0; font-weight:normal; font-size:0.85rem;">
+                  Acepto el tratamiento de mis datos personales de acuerdo con la política de privacidad.
+                </label>
+              </div>
+
+              <div style="text-align:right; margin-top:24px;">
+                <button type="submit" class="btn btn-primary" style="padding:12px 28px;">
+                  <i class="fa-solid fa-paper-plane"></i> Enviar Postulación y Analizar con IA
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- PROCESSING ANIMATION MODAL -->
+  <div class="modal-overlay" id="processing-modal">
+    <div class="modal-box" style="max-width:500px;">
+      <div class="modal-header">
+        <h3>Analizando Postulación con IA</h3>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.88rem; color:var(--text-muted);">
+          Por favor espere mientras el pipeline de Inteligencia Artificial procesa el perfil...
+        </p>
+
+        <ul class="processing-list">
+          <li class="proc-step" id="step-1"><span class="proc-icon"><i class="fa-solid fa-check"></i></span> Recibiendo postulación...</li>
+          <li class="proc-step" id="step-2"><span class="proc-icon"><i class="fa-solid fa-circle-notch fa-spin"></i></span> Procesando hoja de vida PDF...</li>
+          <li class="proc-step" id="step-3"><span class="proc-icon"><i class="fa-regular fa-circle"></i></span> Analizando información con IA...</li>
+          <li class="proc-step" id="step-4"><span class="proc-icon"><i class="fa-regular fa-circle"></i></span> Comparando con requisitos...</li>
+          <li class="proc-step" id="step-5"><span class="proc-icon"><i class="fa-regular fa-circle"></i></span> Generando score de compatibilidad...</li>
+          <li class="proc-step" id="step-6"><span class="proc-icon"><i class="fa-regular fa-circle"></i></span> Registrando candidato...</li>
+        </ul>
+
+        <div id="processing-result" style="display:none; text-align:center; padding:16px; background:rgba(22,163,74,0.1); border-radius:var(--radius-md);">
+          <i class="fa-solid fa-circle-check" style="font-size:2.5rem; color:var(--green-success); margin-bottom:8px;"></i>
+          <h4 style="color:var(--green-success);">¡Postulación registrada correctamente!</h4>
+          <p style="font-size:0.85rem; margin-top:4px;">ID Generado: <strong id="res-generated-id">TF-2026-0001</strong></p>
+          <a href="candidatos.html" class="btn btn-primary btn-sm" style="margin-top:16px;">Ver en la lista de candidatos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared JS Engine -->
+  <script src="app.js"></script>
+</body>
+</html>

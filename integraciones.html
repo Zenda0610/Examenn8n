@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalentAI — Integraciones y Arquitectura</title>
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="integraciones">
+
+  <div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div>
+        <div class="sidebar-header">
+          <div class="brand-box">
+            <div class="brand-icon">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <div class="brand-info">
+              <h2>TalentAI</h2>
+              <span>Selección Inteligente</span>
+            </div>
+          </div>
+          <button class="toggle-sidebar-btn" id="sidebar-toggle" title="Contraer/Expandir Menú">
+            <i class="fa-solid fa-angles-left" id="toggle-icon"></i>
+          </button>
+        </div>
+
+        <ul class="sidebar-menu">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">
+              <i class="fa-solid fa-chart-pie"></i>
+              <span class="nav-text">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="candidatos.html" class="nav-link">
+              <i class="fa-solid fa-users"></i>
+              <span class="nav-text">Candidatos</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="postulacion.html" class="nav-link">
+              <i class="fa-solid fa-user-plus"></i>
+              <span class="nav-text">Nueva Postulación</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="vacantes.html" class="nav-link">
+              <i class="fa-solid fa-briefcase"></i>
+              <span class="nav-text">Vacantes</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="clasificacion.html" class="nav-link">
+              <i class="fa-solid fa-layer-group"></i>
+              <span class="nav-text">Clasificación</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="revisiones.html" class="nav-link">
+              <i class="fa-solid fa-clipboard-check"></i>
+              <span class="nav-text">Revisiones</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="metricas.html" class="nav-link">
+              <i class="fa-solid fa-chart-line"></i>
+              <span class="nav-text">Métricas</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="integraciones.html" class="nav-link active">
+              <i class="fa-solid fa-network-wired"></i>
+              <span class="nav-text">Integraciones</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="configuracion.html" class="nav-link">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span class="nav-text">Configuración</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-box">
+          <div class="avatar">RH</div>
+          <div class="user-info">
+            <h4>Equipo RRHH</h4>
+            <p>Administrador</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <div class="topbar-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="top-search-input" placeholder="Buscar candidato o habilidad...">
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <button class="icon-btn" id="notif-bell-btn" title="Notificaciones">
+            <i class="fa-regular fa-bell"></i>
+            <span class="notification-badge" id="notif-count">3</span>
+          </button>
+
+          <div class="notification-dropdown" id="notification-dropdown">
+            <div class="notif-header">
+              <h4>Centro de Notificaciones</h4>
+              <button class="btn btn-sm btn-secondary" onclick="markAllNotificationsRead()">Marcar leídas</button>
+            </div>
+            <div class="notif-list" id="notif-list-container"></div>
+          </div>
+
+          <button class="icon-btn" id="theme-toggle-btn" title="Cambiar Tema Dark/Light">
+            <i class="fa-regular fa-moon" id="theme-icon"></i>
+          </button>
+
+          <button class="btn btn-secondary btn-sm" onclick="logout()" title="Cerrar Sesión">
+            <i class="fa-solid fa-right-from-bracket"></i> Salir
+          </button>
+
+          <a href="postulacion.html" class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-plus"></i>
+            <span>Nueva Postulación</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- CONTENT AREA -->
+      <main class="content-area">
+        <div class="section-header">
+          <div>
+            <h1>Arquitectura e Integraciones</h1>
+            <p>Demostración visual de la conexión simulada entre Webhooks, IA y Telegram</p>
+          </div>
+        </div>
+
+        <!-- n8n Workflow -->
+        <div class="card" style="margin-bottom: 24px;">
+          <h3>Flujo de Automatización n8n</h3>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:12px;">
+            Diagrama visual del pipeline de procesamiento de candidatos
+          </p>
+          <div class="workflow-flow">
+            <div class="wf-node">
+              <i class="fa-solid fa-user-pen"></i>
+              <h5 style="font-size:0.85rem;">Candidato</h5>
+            </div>
+            <span class="wf-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+            <div class="wf-node">
+              <i class="fa-solid fa-window-maximize"></i>
+              <h5 style="font-size:0.85rem;">Formulario Web</h5>
+            </div>
+            <span class="wf-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+            <div class="wf-node" style="border-color:var(--blue-primary);">
+              <i class="fa-solid fa-bolt"></i>
+              <h5 style="font-size:0.85rem;">Webhook n8n</h5>
+            </div>
+            <span class="wf-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+            <div class="wf-node">
+              <i class="fa-solid fa-file-code"></i>
+              <h5 style="font-size:0.85rem;">Extracción CV</h5>
+            </div>
+            <span class="wf-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+            <div class="wf-node">
+              <i class="fa-solid fa-brain"></i>
+              <h5 style="font-size:0.85rem;">Análisis IA</h5>
+            </div>
+            <span class="wf-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+            <div class="wf-node">
+              <i class="fa-solid fa-database"></i>
+              <h5 style="font-size:0.85rem;">Base de Datos</h5>
+            </div>
+            <span class="wf-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+            <div class="wf-node">
+              <i class="fa-paper-plane fa-solid"></i>
+              <h5 style="font-size:0.85rem;">Notificación RRHH</h5>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px;">
+          <!-- AI JSON Payload -->
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+              <h3>Respuesta IA (JSON Output)</h3>
+              <span class="badge badge-score-high"><i class="fa-solid fa-wifi"></i> IA Conectada</span>
+            </div>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:10px;">
+              Estructura de respuesta generada por el modelo LLM Candidate Analyzer:
+            </p>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyJsonSnippet()"><i class="fa-regular fa-copy"></i> Copiar</button>
+<pre id="json-snippet">{
+  "experiencia_anios": 3,
+  "habilidades": [
+    "Java", "Spring Boot", 
+    "PostgreSQL", "Docker"
+  ],
+  "nivel_educativo": "Profesional",
+  "compatibilidad": 87,
+  "observaciones": "Cumple la mayoría de requisitos"
+}</pre>
+            </div>
+          </div>
+
+          <!-- Telegram Bot Interactive Simulator -->
+          <div class="card telegram-card">
+            <div class="telegram-header">
+              <i class="fa-brands fa-telegram" style="font-size:1.8rem; color:#2AABEE;"></i>
+              <div>
+                <h4 style="color:#FFF;">Bot de Recursos Humanos</h4>
+                <span style="font-size:0.75rem; color:#40B3E0;">Conectado</span>
+              </div>
+            </div>
+
+            <div class="telegram-chat" id="telegram-chat-window">
+              <div class="chat-msg bot">
+🤖 ¡Hola! Soy el Bot de TalentAI. Puedes enviarme comandos como:
+/candidato CAND-001
+/pendientes
+/vacantes
+/estadisticas
+              </div>
+            </div>
+
+            <div style="padding:12px; background:#17212B; display:flex; gap:8px; flex-wrap:wrap;">
+              <button class="btn btn-sm btn-secondary" onclick="sendTelegramCmd('/candidato CAND-001')">/candidato CAND-001</button>
+              <button class="btn btn-sm btn-secondary" onclick="sendTelegramCmd('/pendientes')">/pendientes</button>
+              <button class="btn btn-sm btn-secondary" onclick="sendTelegramCmd('/vacantes')">/vacantes</button>
+              <button class="btn btn-sm btn-secondary" onclick="sendTelegramCmd('/estadisticas')">/estadisticas</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIVE WEBHOOK TESTER -->
+        <div class="card" style="margin-top:28px; border-left:4px solid var(--blue-primary);">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+            <div>
+              <h3><i class="fa-solid fa-terminal" style="color:var(--blue-primary);"></i> Consola de Pruebas Webhook n8n</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">Dispara eventos de prueba hacia tu n8n en tiempo real e inspecciona la respuesta HTTP completa.</p>
+            </div>
+            <a href="configuracion.html" class="btn btn-secondary btn-sm"><i class="fa-solid fa-gear"></i> Configurar URLs</a>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px;">
+            <button class="btn btn-primary btn-sm" onclick="fireTestEvent('candidate')">
+              <i class="fa-solid fa-user-plus"></i> Disparar Postulación
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="fireTestEvent('decision')">
+              <i class="fa-solid fa-check-double"></i> Disparar Decisión
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="fireTestEvent('test')">
+              <i class="fa-solid fa-bolt"></i> Ping de Prueba
+            </button>
+            <button class="btn btn-sm" style="background:var(--red-danger); color:#fff;" onclick="clearWebhookLog()">
+              <i class="fa-solid fa-trash"></i> Limpiar Log
+            </button>
+          </div>
+
+          <div id="webhook-log-container" style="max-height:420px; overflow-y:auto;">
+            <p style="color:var(--text-muted); font-size:0.85rem; text-align:center; padding:20px;">Ningún evento disparado todavía.</p>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Shared JS Engine -->
+  <script src="app.js"></script>
+  <script>
+    function fireTestEvent(type) {
+      const samplePayloads = {
+        candidate: {
+          nombre: 'Candidato de Prueba',
+          correo: 'test@talentai.com',
+          telefono: '+57 300 000 0000',
+          vacante: 'Backend Developer',
+          experiencia_anios: 3,
+          habilidades: ['Java', 'Spring Boot', 'Docker'],
+          pdf_adjunto: 'test_cv.pdf'
+        },
+        decision: {
+          candidato_id: 'CAND-001',
+          nombre: 'Laura Gómez',
+          correo: 'laura.gomez@email.com',
+          vacante: 'Backend Developer',
+          score: 87,
+          nuevo_estado: 'PRESELECCIONADO',
+          decision_por: 'RRHH'
+        },
+        test: {
+          mensaje: 'Prueba de conexión desde TalentAI',
+          version: '2.0'
+        }
+      };
+      sendN8nWebhook(type, samplePayloads[type]).then(() => renderWebhookLog());
+    }
+
+    function clearWebhookLog() {
+      webhookLogs = [];
+      renderWebhookLog();
+    }
+  </script>
+</body>
+</html>

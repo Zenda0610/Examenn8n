@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalentAI — Portal del Candidato</title>
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="portal_candidato">
+
+  <!-- CANDIDATE HEADER -->
+  <header style="background:var(--slate-card); border-bottom:1px solid var(--slate-border); padding:16px 32px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="brand-icon">
+        <i class="fa-solid fa-brain"></i>
+      </div>
+      <div>
+        <h2 style="font-size:1.25rem;">TalentAI</h2>
+        <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Portal del Postulante</span>
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:16px;">
+      <button class="icon-btn" id="theme-toggle-btn" title="Cambiar Tema Dark/Light">
+        <i class="fa-regular fa-moon" id="theme-icon"></i>
+      </button>
+      <button class="btn btn-secondary btn-sm" onclick="logout()">
+        <i class="fa-solid fa-right-from-bracket"></i> Salir / Cambiar Rol
+      </button>
+    </div>
+  </header>
+
+  <main class="content-area" style="max-width:1100px; margin:0 auto; padding:32px 20px;">
+    
+    <!-- Hero Banner -->
+    <div style="background:linear-gradient(135deg, var(--navy-dark) 0%, #1E293B 100%); color:#FFF; border-radius:var(--radius-lg); padding:36px; margin-bottom:32px; box-shadow:var(--shadow-md);">
+      <div style="max-width:650px;">
+        <span class="badge badge-score-high" style="margin-bottom:12px;"><i class="fa-solid fa-sparkles"></i> Asistencia por Inteligencia Artificial</span>
+        <h1 style="color:#FFF; font-size:2.2rem; margin-bottom:12px;">Impulsa tu carrera tecnológica con TalentAI</h1>
+        <p style="color:#CBD5E1; font-size:1rem; line-height:1.6;">
+          Analizamos objetivamente tu perfil técnico para conectarte con las mejores oportunidades laborales. Consulta las vacantes disponibles o realiza el seguimiento a tu candidatura existente.
+        </p>
+      </div>
+    </div>
+
+    <!-- TRACKING SECTION -->
+    <div class="card" style="margin-bottom:32px; border-left:4px solid var(--blue-primary);">
+      <h3><i class="fa-solid fa-magnifying-glass-chart" style="color:var(--blue-primary);"></i> Consultar Estado de mi Postulación</h3>
+      <p style="font-size:0.88rem; color:var(--text-muted); margin-top:4px; margin-bottom:16px;">
+        Ingresa tu ID de postulación (ej: <code>CAND-001</code> o <code>TF-2026-0001</code>) o tu correo electrónico registrado:
+      </p>
+
+      <div style="display:flex; gap:12px; max-width:600px;">
+        <input type="text" id="track-search-id" class="form-control" placeholder="Ej: CAND-001 o tu correo..." style="flex:1;">
+        <button class="btn btn-primary" onclick="trackCandidateApplication()"><i class="fa-solid fa-search"></i> Consultar</button>
+      </div>
+
+      <div id="track-result-box" style="margin-top:20px; display:none;">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <!-- OPEN VACANCIES catalog -->
+    <div style="margin-bottom:32px;">
+      <div class="section-header" style="margin-bottom:16px;">
+        <div>
+          <h2>Vacantes Activas Disponibles</h2>
+          <p>Explora los perfiles tecnológicos abiertos en nuestra plataforma</p>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px;" id="cand-vacancies-container">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <!-- REGISTRATION FORM SECTION -->
+    <div class="card" id="application-form-section">
+      <div class="section-header" style="margin-bottom:20px;">
+        <div>
+          <h2>Formulario de Postulación</h2>
+          <p>Completa tus datos personales y adjunta tu Hoja de Vida en formato PDF</p>
+        </div>
+      </div>
+
+      <form id="application-form" onsubmit="handleFormSubmit(event)">
+        <div class="form-group">
+          <label for="app-name">Nombre Completo *</label>
+          <input type="text" id="app-name" class="form-control" placeholder="Ej: Laura Gómez" required>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+          <div class="form-group">
+            <label for="app-email">Correo Electrónico *</label>
+            <input type="email" id="app-email" class="form-control" placeholder="laura@ejemplo.com" required>
+          </div>
+          <div class="form-group">
+            <label for="app-phone">Número Telefónico *</label>
+            <input type="tel" id="app-phone" class="form-control" placeholder="+57 300 123 4567" required>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+          <div class="form-group">
+            <label for="app-vacancy">Vacante a la que deseas postularte *</label>
+            <select id="app-vacancy" class="form-control" required>
+              <option value="">Seleccione una vacante...</option>
+              <option value="Backend Developer">Backend Developer</option>
+              <option value="Frontend Developer">Frontend Developer</option>
+              <option value="Data Analyst">Data Analyst</option>
+              <option value="DevOps Engineer">DevOps Engineer</option>
+              <option value="QA Engineer">QA Engineer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="app-exp">Años de Experiencia Laboral *</label>
+            <input type="number" id="app-exp" class="form-control" min="0" max="30" placeholder="Ej: 3" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="app-skills">Tecnologías y Conocimientos Clave</label>
+          <input type="text" id="app-skills" class="form-control" placeholder="Ej: Java, Spring Boot, PostgreSQL, Docker">
+        </div>
+
+        <div class="form-group">
+          <label>Carga de Hoja de Vida (PDF) *</label>
+          <div class="upload-dropzone" onclick="document.getElementById('app-pdf').click()">
+            <i class="fa-solid fa-file-pdf"></i>
+            <h4 id="pdf-filename-display">Arrastra o haz clic para subir tu Hoja de Vida PDF</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Formato soportado: .pdf (Máx. 10MB)</p>
+            <input type="file" id="app-pdf" accept=".pdf" style="display:none;" onchange="handleFileSelect(event)" required>
+          </div>
+        </div>
+
+        <div class="form-group" style="display:flex; align-items:center; gap:8px;">
+          <input type="checkbox" id="app-terms" required>
+          <label for="app-terms" style="margin-bottom:0; font-weight:normal; font-size:0.85rem;">
+            Acepto el tratamiento de mis datos personales de acuerdo con la política de privacidad.
+          </label>
+        </div>
+
+        <div style="text-align:right; margin-top:24px;">
+          <button type="submit" class="btn btn-success" style="padding:12px 28px;">
+            <i class="fa-solid fa-paper-plane"></i> Enviar Postulación y Procesar con IA
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </main>
+
+  <!-- PROCESSING ANIMATION MODAL -->
+  <div class="modal-overlay" id="processing-modal">
+    <div class="modal-box" style="max-width:500px;">
+      <div class="modal-header">
+        <h3>Analizando Postulación con IA</h3>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.88rem; color:var(--text-muted);">
+          Por favor espere mientras la IA procesa tu Hoja de Vida...
+        </p>
+
+        <ul class="processing-list">
+          <li class="proc-step" id="step-1"><span class="proc-icon"><i class="fa-solid fa-check"></i></span> Recibiendo postulación...</li>
+          <li class="proc-step" id="step-2"><span class="proc-icon"><i class="fa-solid fa-circle-notch fa-spin"></i></span> Procesando hoja de vida PDF...</li>
+          <li class="proc-step" id="step-3"><span class="proc-icon"><i class="fa-regular fa-circle"></i></span> Analizando información con IA...</li>
+          <li class="proc-step" id="step-4"><span class="proc-icon"><i class="fa-regular fa-circle"></i></span> Comparando con requisitos...</li>
+          <li class="proc-step" id="step-5"><span class="proc-icon"><i class="fa-regular fa-circle"></i></span> Generando score de compatibilidad...</li>
+          <li class="proc-step" id="step-6"><span class="proc-icon"><i class="fa-regular fa-circle"></i></span> Registrando candidato...</li>
+        </ul>
+
+        <div id="processing-result" style="display:none; text-align:center; padding:16px; background:rgba(22,163,74,0.1); border-radius:var(--radius-md);">
+          <i class="fa-solid fa-circle-check" style="font-size:2.5rem; color:var(--green-success); margin-bottom:8px;"></i>
+          <h4 style="color:var(--green-success);">¡Postulación enviada correctamente!</h4>
+          <p style="font-size:0.88rem; margin-top:4px;">Tu ID de seguimiento es: <strong id="res-generated-id">TF-2026-0001</strong></p>
+          <p style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Guarda este código para consultar el avance de tu candidatura.</p>
+          <button class="btn btn-primary btn-sm" style="margin-top:16px;" onclick="closeModal('processing-modal'); trackCandidateApplication();">Ver estado de mi postulación</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared JS Engine -->
+  <script src="app.js"></script>
+</body>
+</html>

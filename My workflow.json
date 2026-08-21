@@ -1,0 +1,3031 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "talentai-postulacion",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1120,
+        352
+      ],
+      "id": "c1e5b2b9-60e9-4ab4-958c-22e0f22ee970",
+      "name": "Webhook Postulación",
+      "webhookId": "e2835abf-ccf4-4ed9-a855-1e8e10f204d9"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4877868c-5fbc-410c-b639-29ec1ed2b97c",
+              "name": "Ticket_ID",
+              "value": "={{ $json.body.ticket_id }}",
+              "type": "string"
+            },
+            {
+              "id": "3ea48b7f-3425-4576-8307-e5bc6185fb98",
+              "name": "ID_Candidato",
+              "value": "={{ $json.body.id_candidato }}",
+              "type": "string"
+            },
+            {
+              "id": "2050ef63-8d03-4276-a757-d98859aaafd2",
+              "name": "Nombre",
+              "value": "={{ $json.body.nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "85def4f1-1d31-445f-93aa-82e63dd6a1fe",
+              "name": "Correo",
+              "value": "={{ $json.body.correo }}",
+              "type": "string"
+            },
+            {
+              "id": "6458f701-46cb-445a-91f4-ccab75c5816f",
+              "name": "Telefono",
+              "value": "={{ $json.body.telefono }}",
+              "type": "string"
+            },
+            {
+              "id": "beaf931b-c467-47d3-885d-ebbaaab22554",
+              "name": "Vacante",
+              "value": "={{ $json.body.vacante }}",
+              "type": "string"
+            },
+            {
+              "id": "98c5e939-d026-4b87-bb97-d5d9c567abc2",
+              "name": "Experiencia",
+              "value": "={{ $json.body.experiencia_anios }}",
+              "type": "number"
+            },
+            {
+              "id": "30bce6b6-3d43-497f-bf44-83fcc05f07f4",
+              "name": "Acepta_Tratamiento",
+              "value": "={{ $json.body.acepta_tratamiento_datos }}",
+              "type": "boolean"
+            },
+            {
+              "id": "8adc42fb-ceda-4a1d-954d-ede3de8fbda3",
+              "name": "Fecha_Postulacion",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "e8e40b56-7364-44e6-84db-b1155aeb54c5",
+              "name": "Estado",
+              "value": "PENDIENTE_REVISION",
+              "type": "string"
+            },
+            {
+              "id": "dd6d110d-5bdb-4f1c-bb09-344f2f826b2c",
+              "name": "Categoria",
+              "value": "PENDIENTE",
+              "type": "string"
+            },
+            {
+              "id": "3850c54f-1787-4769-92a0-9ef6bc3d946a",
+              "name": "Score_Compatibilidad",
+              "value": 0,
+              "type": "number"
+            },
+            {
+              "id": "c2685b2c-11a2-429d-a17a-82e8547bab84",
+              "name": "Revision_RRHH",
+              "value": "Pendiente",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -896,
+        352
+      ],
+      "id": "80b67a31-28fe-4178-a09d-2676313ccaa8",
+      "name": "Preparar Postulación"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Preparar Postulación').item.json.body.vacante }}",
+                    "rightValue": "Backend Developer",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "b32bd34a-4016-422d-a5a3-a46f2e8ee46a"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Backend Developer"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Preparar Postulación').item.json.body.vacante }}",
+                    "rightValue": "Frontend Developer",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "6bc4a354-dd91-4bfa-8878-ede2c6d4cab1"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Frontend Developer"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Preparar Postulación').item.json.body.vacante }}",
+                    "rightValue": "Data Analyst",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "f802a352-c1a7-43cd-b02e-a6a165e0f90b"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Data Analyst"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Preparar Postulación').item.json.body.vacante }}",
+                    "rightValue": "DevOps Engineer",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "453fba50-88b8-44cb-bf9b-3f0c4ce0b980"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "DevOps Engineer"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Preparar Postulación').item.json.body.vacante }}",
+                    "rightValue": "QA Engineer",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "ced42ab7-48d6-48b1-955d-9c30c8a4768d"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "QA Engineer"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -224,
+        416
+      ],
+      "id": "edcca664-a8e4-4ad0-bfea-83204685e5ef",
+      "name": "Clasificar Vacante"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c63c2afd-d1c4-4279-b800-aee7780b53a3",
+              "name": "Experiencia_Minima",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "d2c1d556-d5e1-42ff-a8df-65fbbd5dd977",
+              "name": "Habilidades_Requeridas",
+              "value": "Java, Spring Boot, SQL, Git, REST API",
+              "type": "string"
+            },
+            {
+              "id": "4d35cf2c-1adf-4e86-8d9e-5f44dd94c2cc",
+              "name": "Requisitos_Definidos",
+              "value": "Experiencia mínima: 1 año(s). Habilidades: Java, Spring Boot, SQL, Git, REST API",
+              "type": "string"
+            },
+            {
+              "id": "c2c0a5d7-441e-4a86-885b-3268c88608d1",
+              "name": "Vacante",
+              "value": "={{ $('Webhook Postulación').item.json.body.vacante }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "80ceb260-5c59-45b6-9a8c-045b7348a5ee",
+      "name": "Requisitos Backend Developer"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0b85a4ed-c5de-4a3b-843a-620a5c53ae8a",
+              "name": "Experiencia_Minima",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "d3bcde6e-2a2b-49c4-8201-5da13d00d033",
+              "name": "Habilidades_Requeridas",
+              "value": "JavaScript, React, HTML, CSS, Git",
+              "type": "string"
+            },
+            {
+              "id": "a1d89b1e-28c3-44b8-b884-05356b30fb89",
+              "name": "Requisitos_Definidos",
+              "value": "Experiencia mínima: 1 año(s). Habilidades: JavaScript, React, HTML, CSS, Git",
+              "type": "string"
+            },
+            {
+              "id": "678b4031-3f42-4872-ab9f-87662f5e165a",
+              "name": "Vacante",
+              "value": "={{ $('Webhook Postulación').item.json.body.vacante }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        192
+      ],
+      "id": "807949ca-6346-47b2-9c80-815daa9b2142",
+      "name": "Requisitos Frontend Developer"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9fd1d5a6-f423-475f-9f74-f11ead58da19",
+              "name": "Experiencia_Minima",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "dd7a6368-33b4-4e35-a2af-fce88410b9ec",
+              "name": "Habilidades_Requeridas",
+              "value": "SQL, Python, Power BI, Excel",
+              "type": "string"
+            },
+            {
+              "id": "771691f8-da1c-49c5-9f69-fc9347a71e9f",
+              "name": "Requisitos_Definidos",
+              "value": "Experiencia mínima: 1 año(s). Habilidades: SQL, Python, Power BI, Excel",
+              "type": "string"
+            },
+            {
+              "id": "d04ac735-17ac-4fa6-9e11-2f4a2ec3251d",
+              "name": "Vacante",
+              "value": "={{ $('Webhook Postulación').item.json.body.vacante }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        384
+      ],
+      "id": "e56e129b-ae49-4e7b-8e90-f54cc228390c",
+      "name": "Requisitos Data Analyst"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1eedf26a-6265-4e10-ab47-26a309edf8e6",
+              "name": "Experiencia_Minima",
+              "value": 2,
+              "type": "number"
+            },
+            {
+              "id": "35050bbf-00af-488a-8582-85f350396ed0",
+              "name": "Habilidades_Requeridas",
+              "value": "AWS, Docker, Kubernetes, CI/CD, Linux",
+              "type": "string"
+            },
+            {
+              "id": "444df96d-c3bd-4831-9779-f72786d506db",
+              "name": "Requisitos_Definidos",
+              "value": "Experiencia mínima: 2 año(s). Habilidades: AWS, Docker, Kubernetes, CI/CD, Linux",
+              "type": "string"
+            },
+            {
+              "id": "a20df598-e6b0-4489-a77e-6d8eae91a556",
+              "name": "Vacante",
+              "value": "={{ $('Webhook Postulación').item.json.body.vacante }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        576
+      ],
+      "id": "bdfcb32b-0d1b-4bc3-ad50-f54d00c09ddd",
+      "name": "Requisitos DevOps Engineer"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "10456611-d88d-45d4-9d71-086cf185a8ce",
+              "name": "Experiencia_Minima",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "c5e0abeb-301e-47a8-ae17-e1e765bb08b3",
+              "name": "Habilidades_Requeridas",
+              "value": "Selenium, Cypress, Postman, Testing Manual",
+              "type": "string"
+            },
+            {
+              "id": "824dc5a9-97e0-4d8b-bd70-0821e0f58ea5",
+              "name": "Requisitos_Definidos",
+              "value": "Experiencia mínima: 1 año(s). Habilidades: Selenium, Cypress, Postman, Testing Manual",
+              "type": "string"
+            },
+            {
+              "id": "1f99dde4-9ffd-4de0-8d7f-20789f504b4f",
+              "name": "Vacante",
+              "value": "={{ $('Webhook Postulación').item.json.body.vacante }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        768
+      ],
+      "id": "9ed42f0b-0d9a-4c6d-b9a2-d63fa389a2bc",
+      "name": "Requisitos QA Engineer"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2bf753cc-5da4-44a8-b75a-4a492c3cc294",
+              "name": "Experiencia_Minima",
+              "value": 0,
+              "type": "number"
+            },
+            {
+              "id": "527b48d5-7acd-494a-be0d-24e4f3844af9",
+              "name": "Habilidades_Requeridas",
+              "value": "Revisión manual",
+              "type": "string"
+            },
+            {
+              "id": "220fe3b6-e903-401e-bfb8-511cdb313ffb",
+              "name": "Requisitos_Definidos",
+              "value": "Experiencia mínima: 0 año(s). Habilidades: Revisión manual",
+              "type": "string"
+            },
+            {
+              "id": "16f3abbc-5ed2-49f8-a6fe-6d6db8dee225",
+              "name": "Vacante",
+              "value": "={{ $('Webhook Postulación').item.json.body.vacante }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        960
+      ],
+      "id": "569be230-9783-49e8-a47b-1195b4c0c994",
+      "name": "Requisitos Respaldo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c84545da-db22-4aa2-8256-0f80ba66d935",
+              "name": "Desición",
+              "value": "={{ $json.output.decision }}",
+              "type": "string"
+            },
+            {
+              "id": "2b9d4075-0741-488e-b822-de2a16579a5c",
+              "name": "Resumen_IA",
+              "value": "={{ $json.output.experiencia.observacion }}",
+              "type": "string"
+            },
+            {
+              "id": "095b4d3c-8ed7-43a8-ba92-06f13cd8fd12",
+              "name": "Observaciones_IA",
+              "value": "={{ $json.output.observaciones }}",
+              "type": "string"
+            },
+            {
+              "id": "9f09f7a0-54b0-4c45-b96d-af7bb748249d",
+              "name": "Porcentaje de aprobación",
+              "value": "={{ $json.output.experiencia.porcentaje }}",
+              "type": "number"
+            },
+            {
+              "id": "eca0a3a0-3378-479c-b12e-7d5378ee7b60",
+              "name": "Prioridad",
+              "value": "={{ $json.output.prioridad_revision }}",
+              "type": "string"
+            },
+            {
+              "id": "d5b0f7ef-db33-4411-acd7-aeb1d5c637a7",
+              "name": "Recomendación",
+              "value": "={{ $json.output.recomendacion_rrhh }}",
+              "type": "string"
+            },
+            {
+              "id": "ae0a3d88-2da6-47f2-afee-94541b76c8f9",
+              "name": "Cumple_Experiencia",
+              "value": "={{ $json.output.experiencia.cumple }}",
+              "type": "boolean"
+            },
+            {
+              "id": "38fd44c1-8e47-4379-bcfe-b33845927ca7",
+              "name": "Nivel_académico",
+              "value": "={{ $json.output['Nivel académico'] }}",
+              "type": "string"
+            },
+            {
+              "id": "d48fa171-968f-4ff2-bbab-49fbc07a47cd",
+              "name": "Preguntas_postulante",
+              "value": "={{ $json.output['Preguntas Para Hacer al Postulante'] }}",
+              "type": "string"
+            },
+            {
+              "id": "36d9b062-9562-45d8-bf57-c5b2e74998e1",
+              "name": "Fecha_Postulacion",
+              "value": "={{ $('Webhook Postulación').item.json.body.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        928,
+        608
+      ],
+      "id": "ca9b8ffa-6d59-44b3-be72-94e9404a34eb",
+      "name": "Consolidar Candidato"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1LBztbX2SthtY9ewmQermHogRV2UD7wf7oE6cUfs94qA",
+          "mode": "list",
+          "cachedResultName": "examenn8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LBztbX2SthtY9ewmQermHogRV2UD7wf7oE6cUfs94qA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LBztbX2SthtY9ewmQermHogRV2UD7wf7oE6cUfs94qA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Observaciones_IA": "={{ $json.Observaciones_IA }}",
+            "Resumen_IA": "={{ $json.Resumen_IA }}",
+            "Nombre_postulante": "={{ $('Webhook Postulación').item.json.body.nombre }}",
+            "Ticket ": "={{ $('Webhook Postulación').item.json.body.ticket_id }}",
+            "Correo": "={{ $('Webhook Postulación').item.json.body.correo }}",
+            "Numero_contacto": "={{ $('Webhook Postulación').item.json.body.telefono ? String($('Webhook Postulación').item.json.body.telefono).replace(/\\+/g, '') : '' }}",
+            "Vacante ": "={{ $('Webhook Postulación').item.json.body.vacante }}",
+            "Desición": "={{ $json.Desición }}",
+            "Porcentaje de aprobación": "={{ $json['Porcentaje de aprobación'] }}",
+            "Prioridad": "={{ $json.Prioridad }}",
+            "Recomendación": "={{ $json.Recomendación }}",
+            "Cumple_Experiencia": "={{ $json.Cumple_Experiencia }}",
+            "Habilidades ": "={{ $json.Observaciones_IA }}",
+            "Nivel_educativo": "={{ $json.Nivel_académico }}",
+            "Preguntas_postulante": "={{ $json.Preguntas_postulante }}",
+            "Fecha_Postulacion": "={{ $('Webhook Postulación').item.json.body.timestamp }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Ticket ",
+              "displayName": "Ticket ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Nombre_postulante",
+              "displayName": "Nombre_postulante",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Correo",
+              "displayName": "Correo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Numero_contacto",
+              "displayName": "Numero_contacto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Vacante ",
+              "displayName": "Vacante ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Desición",
+              "displayName": "Desición",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Resumen_IA",
+              "displayName": "Resumen_IA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Observaciones_IA",
+              "displayName": "Observaciones_IA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Porcentaje de aprobación",
+              "displayName": "Porcentaje de aprobación",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Prioridad",
+              "displayName": "Prioridad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Recomendación",
+              "displayName": "Recomendación",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Cumple_Experiencia",
+              "displayName": "Cumple_Experiencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Habilidades ",
+              "displayName": "Habilidades ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Nivel_educativo",
+              "displayName": "Nivel_educativo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Preguntas_postulante",
+              "displayName": "Preguntas_postulante",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Fecha_Postulacion",
+              "displayName": "Fecha_Postulacion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1152,
+        608
+      ],
+      "id": "35e214f4-a905-4913-a21c-79322b0db993",
+      "name": "Guardar Candidato en Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gp2G54IJmMuYW7Nx",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { success: true, ticket_id: $('Webhook Postulación').item.json.body.ticket_id, id_candidato: $('Webhook Postulación').item.json.body.id_candidato, nombre: $('Webhook Postulación').item.json.body.nombre, compatibilidad: $json['Porcentaje de aprobación'], score_compatibilidad: $json['Porcentaje de aprobación'], decision: $json.Desición, prioridad: $json.Prioridad, resumen: $json.Resumen_IA, observaciones: $json.Observaciones_IA, recomendacion: $json.Recomendación, nivel_educativo: $json.Nivel_académico, preguntas: $json.Preguntas_postulante, estado: 'PENDIENTE_REVISION', mensaje: 'La postulación fue recibida correctamente y guardada en Google Sheets.' } }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1376,
+        608
+      ],
+      "id": "5014a6f0-aded-4c95-bf44-12ea06a4aa01",
+      "name": "Respuesta Postulación"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Eres TalentAI, un agente especializado en preselección y análisis objetivo de hojas de vida.\n\nTu tarea es analizar una VACANTE y compararla con la información de un CANDIDATO. Debes determinar qué tan adecuado es el candidato para la vacante, calcular un porcentaje de compatibilidad y establecer la prioridad con la que RRHH debería revisar su hoja de vida.\n\nIMPORTANTE:\n- Basa el análisis únicamente en la información proporcionada.\n- No inventes experiencia, estudios, habilidades o tecnologías que no aparezcan en los datos.\n- No tengas en cuenta características personales sensibles o irrelevantes para el puesto.\n- Evalúa exclusivamente criterios relacionados con el trabajo: experiencia, habilidades, tecnologías, educación/formación relevante y requisitos explícitos de la vacante.\n- La experiencia y las habilidades requeridas por la vacante tienen mayor peso que aspectos secundarios.\n- Si falta información, indícalo explícitamente.\n- No descartes automáticamente a un candidato únicamente porque falte información; diferencia entre \"no cumple\" y \"no hay información suficiente\".\n\n==============================\nDATOS DE ENTRADA\n==============================\n\nVACANTE:\n{{ $('Webhook Postulación').item.json.body.vacante }}\n\nCANDIDATO:\n{{ $('Webhook Postulación').item.json.body.nombre }}\n\n==============================\nCRITERIOS DE EVALUACIÓN\n==============================\n\nEvalúa los siguientes aspectos:\n\n1. EXPERIENCIA PROFESIONAL — 30%\n   - Compara los años de experiencia del candidato con los años solicitados.\n   - Determina si la experiencia es suficiente y relevante para la vacante.\n   - La experiencia en áreas directamente relacionadas debe tener mayor valor.\n\n2. HABILIDADES Y TECNOLOGÍAS — 40%\n   - Compara las habilidades del candidato con las tecnologías y habilidades requeridas.\n   - Identifica coincidencias exactas.\n   - Identifica habilidades relacionadas o parcialmente equivalentes.\n   - Identifica requisitos importantes que no cumple.\n\n3. EDUCACIÓN Y FORMACIÓN — 15%\n   - Evalúa si la formación académica está relacionada con la vacante.\n   - Si la vacante no exige una formación específica, no penalices excesivamente al candidato.\n\n4. REQUISITOS ESPECÍFICOS — 15%\n   - Evalúa cualquier requisito adicional explícito de la vacante.\n   - Si no existen requisitos adicionales, distribuye este peso proporcionalmente entre los demás criterios.\n\n==============================\nCÁLCULO DE COMPATIBILIDAD\n==============================\n\nCalcula un porcentaje entre 0 y 100.\n\nInterpretación:\n\n90-100:\nCompatibilidad excelente.\nCumple prácticamente todos los requisitos importantes.\n\n80-89:\nCompatibilidad alta.\nCumple la mayoría de los requisitos y merece revisión prioritaria.\n\n70-79:\nCompatibilidad buena.\nTiene un perfil razonablemente adecuado, pero requiere revisión humana.\n\n60-69:\nCompatibilidad media.\nTiene algunos requisitos importantes, pero existen brechas que deben ser revisadas.\n\n40-59:\nCompatibilidad baja.\nCumple pocos requisitos relevantes.\n\n0-39:\nCompatibilidad muy baja.\nNo presenta suficientes coincidencias con la vacante.\n\n==============================\nPRIORIDAD DE REVISIÓN\n==============================\n\nDespués de calcular la compatibilidad determina la prioridad:\n\n\"URGENTE\":\nUsar cuando el candidato tenga una compatibilidad de 80% o superior y cumpla la mayoría de los requisitos importantes.\n\n\"PRIORITARIA\":\nUsar cuando la compatibilidad esté entre 70% y 79%, o cuando exista una combinación especialmente relevante de experiencia y habilidades aunque el porcentaje sea ligeramente inferior.\n\n\"NORMAL\":\nUsar cuando la compatibilidad esté entre 50% y 69%.\n\n\"BAJA\":\nUsar cuando la compatibilidad sea inferior al 50%.\n\nLa prioridad representa qué tan pronto debería revisar RRHH la hoja de vida, NO significa que el candidato deba ser contratado o rechazado automáticamente.\n\n==============================\nDECISIÓN\n==============================\n\nGenera una recomendación:\n\n\"PRESELECCIONAR\":\nEl candidato cumple suficientemente con los requisitos y debería pasar a la siguiente etapa.\n\n\"REVISAR\":\nEl candidato tiene potencial, pero RRHH debe revisar manualmente sus brechas o información faltante.\n\n\"NO PRIORITARIO\":\nEl candidato presenta una compatibilidad baja y puede ser revisado después de los perfiles más adecuados.\n\n\"DESCARTAR\":\nSolo utilizar cuando exista información suficiente para determinar que el candidato no cumple requisitos fundamentales de la vacante.\n\n==============================\nFORMATO DE RESPUESTA\n==============================\n\nRESPONDE EXCLUSIVAMENTE CON JSON VÁLIDO.\n\nNo agregues markdown.\nNo agregues explicaciones fuera del JSON.\n\nFormato obligatorio:\n\n{\n  \"compatibilidad\": 0,\n  \"prioridad_revision\": \"URGENTE\",\n  \"decision\": \"PRESELECCIONAR\",\n  \"nivel_compatibilidad\": \"Alta\",\n  \"experiencia\": {\n    \"cumple\": true,\n    \"porcentaje\": 0,\n    \"observacion\": \"\"\n  },\n  \"habilidades\": {\n    \"cumplidas\": [],\n    \"parcialmente_cumplidas\": [],\n    \"faltantes\": [],\n    \"porcentaje\": 0\n  },\n  \"educacion\": {\n    \"cumple\": true,\n    \"porcentaje\": 0,\n    \"observacion\": \"\"\n  },\n  \"requisitos_especificos\": {\n    \"cumple\": true,\n    \"porcentaje\": 0,\n    \"observacion\": \"\"\n  },\n  \"fortalezas\": [],\n  \"brechas\": [],\n  \"observaciones\": \"\",\n  \"justificacion_prioridad\": \"\",\n  \"recomendacion_rrhh\": \"\"\n}\n\n==============================\nREGLA FINAL\n==============================\n\nEl porcentaje debe representar la compatibilidad REAL entre el candidato y la vacante.\n\nNo aumentes el porcentaje para favorecer al candidato.\nNo reduzcas el porcentaje por motivos personales irrelevantes.\nSi existen requisitos fundamentales que no se cumplen, esto debe reflejarse claramente en el porcentaje y en la decisión.\n\nLa prioridad de revisión debe ayudar a RRHH a decidir qué hojas de vida revisar primero.\n\nTodo eso con base a la siguiente información de la hoja de vida:\n{{ $('Extract from File').item.json.text }}\n\nLa respuesta por favor con saltos de linea para yo poder organizarlo en n8n\n\nAñade el nivel educativo del postulante \n\nNecesito también que generes preguntas relacionadas a la experiencia dicha por el participante con el fin que los RRHH puedan realizarlas y verificar la validez de su experiencia \n\nPregunta sugerida:\n\nExplique cómo ha utilizado Docker para desplegar\nuna aplicación desarrollada con Spring Boot.\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        608
+      ],
+      "id": "cfae217e-34c0-48dd-bdb7-acf4d630a38f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        288,
+        848
+      ],
+      "id": "e067ca13-a83b-42d5-8d16-13960cda74e5",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "EEKw0Co0CqoC4uz5",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.output }}",
+        "schemaType": "fromJson",
+        "jsonSchemaExample": "{\n  \"compatibilidad\": 0,\n  \"prioridad_revision\": \"URGENTE\",\n  \"decision\": \"PRESELECCIONAR\",\n  \"nivel_compatibilidad\": \"Alta\",\n  \"experiencia\": {\n    \"cumple\": true,\n    \"porcentaje\": 0,\n    \"observacion\": \"\"\n  },\n  \"habilidades\": {\n    \"cumplidas\": [],\n    \"parcialmente_cumplidas\": [],\n    \"faltantes\": [],\n    \"porcentaje\": 0\n  },\n  \"educacion\": {\n    \"cumple\": true,\n    \"porcentaje\": 0,\n    \"observacion\": \"\"\n  },\n  \"requisitos_especificos\": {\n    \"cumple\": true,\n    \"porcentaje\": 0,\n    \"observacion\": \"\"\n  },\n  \"fortalezas\": [],\n  \"brechas\": [],\n  \"observaciones\": \"\",\n  \"justificacion_prioridad\": \"\",\n  \"recomendacion_rrhh\": \"\",\n  \"Nivel académico\": \"\",\n  \"Preguntas Para Hacer al Postulante\": \"\"\n}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2,
+      "position": [
+        576,
+        608
+      ],
+      "id": "9951a6c4-3baf-41dc-be38-23857319b1f2",
+      "name": "Information Extractor"
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        640,
+        848
+      ],
+      "id": "73f888df-957e-4fe4-a908-e17fdb7ba3e5",
+      "name": "OpenRouter Chat Model1",
+      "credentials": {
+        "openRouterApi": {
+          "id": "EEKw0Co0CqoC4uz5",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "cv",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        -672,
+        352
+      ],
+      "id": "8d72a8cc-c4ff-46e8-8549-d5bbed4f5bb3",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Guardar Candidato en Google Sheets').item.json.Correo }}",
+        "subject": "Proceso de postulación",
+        "emailType": "text",
+        "message": "=¡Hola! {{ $json.Nombre_postulante }} 🎉\n\n**¡Tu postulación fue recibida correctamente!**  \n\nNos alegra mucho contar con tu interés en formar parte de nuestro equipo. Hemos recibido tu hoja de vida y tu postulación ha quedado **registrada y pendiente de revisión por parte de nuestro equipo de Recursos Humanos**. 💼 \n\nAhora viene la parte de revisión de tu perfil. Si tu experiencia y perfil se ajustan a la vacante, nos pondremos en contacto contigo para continuar con el proceso de selección. 🚀 \n\n✨ **¡Gracias por confiar en nosotros y por dar este paso!** Te deseamos muchos éxitos en el proceso. \n\nUn saludo, **Equipo de Recursos Humanos** ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1600,
+        608
+      ],
+      "id": "fb1e0933-dd42-4af1-915d-52c101578ddb",
+      "name": "Send a message",
+      "webhookId": "dbbfb224-4899-4295-9253-b56bb32b3d51"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.text }}",
+                    "rightValue": "[empty]",
+                    "operator": {
+                      "type": "string",
+                      "operation": "empty",
+                      "singleValue": true
+                    },
+                    "id": "590013c1-3d53-4c6c-a757-63a180195789"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Analisis_OCR"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "454793bf-de82-4665-9cab-07d583fa9ed7",
+                    "leftValue": "={{ $json.text }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEmpty",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Se extrajo archivo"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -448,
+        352
+      ],
+      "id": "54df1152-177a-4b18-8e66-05215f45b05f",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "path": "talentai-candidatos",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1120,
+        1184
+      ],
+      "id": "c612f108-ac27-4004-a550-90ef50776ed2",
+      "name": "Webhook Obtener Candidatos",
+      "webhookId": "a7c291ad-2830-40d6-b7b6-d637622c7a19"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1LBztbX2SthtY9ewmQermHogRV2UD7wf7oE6cUfs94qA",
+          "mode": "list",
+          "cachedResultName": "examenn8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LBztbX2SthtY9ewmQermHogRV2UD7wf7oE6cUfs94qA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LBztbX2SthtY9ewmQermHogRV2UD7wf7oE6cUfs94qA/edit#gid=0"
+        },
+        "options": {}
+      },
+      "alwaysOutputData": true,
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -896,
+        1184
+      ],
+      "id": "479aa06f-bd4b-42e7-b0c4-9a6a536e36af",
+      "name": "Leer Candidatos de Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gp2G54IJmMuYW7Nx",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst rows = items.map(item => item.json).filter(json => json && Object.keys(json).length > 0);\nreturn [{ json: { data: rows } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -672,
+        1184
+      ],
+      "id": "aa8bbc9d-d330-448b-8586-aef319d6e76e",
+      "name": "Agrupar Candidatos"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json.data }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        1184
+      ],
+      "id": "703ca7a9-ef60-4f2b-97d3-8899d6004f80",
+      "name": "Respuesta Candidatos GET"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json['Ticket '] }}",
+              "rightValue": "={{ $('Extraer ID Candidato1').item.json.busqueda }}",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "c2",
+              "leftValue": "={{ $json.Nombre_postulante }}",
+              "rightValue": "={{ $('Extraer ID Candidato1').item.json.busqueda }}",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -224,
+        1408
+      ],
+      "id": "f8ab0d33-3d02-4b5f-9a42-2647ce1d7cd2",
+      "name": "Filtrar Candidato"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "p1",
+              "leftValue": "={{ $json.Desición }}",
+              "rightValue": "PENDIENTE",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "p2",
+              "leftValue": "={{ $json.Desición }}",
+              "rightValue": "REVISAR",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -448,
+        1632
+      ],
+      "id": "0555812e-02e8-47b7-a62f-1a71722cc468",
+      "name": "Filtrar Pendientes"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1360,
+        1664
+      ],
+      "id": "7dbdee0d-74cf-4b16-9660-a8d06cbc5cdf",
+      "name": "Telegram Trigger1",
+      "webhookId": "5b21c9f2-32ea-4b9d-81be-3c95e4ca4c51",
+      "credentials": {
+        "telegramApi": {
+          "id": "gLtEbWKnzxqOhwIX",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/candidato",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    },
+                    "id": "9c71f516-987d-4acf-9db8-b4b243d82b36"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Comando Candidato"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/pendientes",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    },
+                    "id": "f1e8d83f-6c82-4b7c-a613-bb113086c22c"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Comando Pendientes"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "226301ff-e970-454f-b8c1-1380d27fd24b",
+                    "leftValue": "={{ $json.message.text.trim().toLowerCase() }}",
+                    "rightValue": "/agendar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "comando agendar"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a08b888d-260a-41a2-914a-ae36c891dad9",
+                    "leftValue": "={{ $json.message.text.trim().toLowerCase() }}",
+                    "rightValue": "/aprobado",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "comando aprobado"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "15134fe5-6e57-4a93-b5d9-41eee07ee5c0",
+                    "leftValue": "={{ $json.message.text.trim().toLowerCase() }}",
+                    "rightValue": "/rubrica",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "comando rubrica"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1056,
+        1680
+      ],
+      "id": "fbc58efd-4b9b-49ce-a5fe-de2db76ae62b",
+      "name": "Clasificar Comando1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "query-id",
+              "name": "busqueda",
+              "value": "={{ $('Telegram Trigger1').item.json.message.text.replace('/candidato', '').trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -672,
+        1408
+      ],
+      "id": "1bf56cc0-79a0-4e23-bf63-3d47d39f9ef4",
+      "name": "Extraer ID Candidato1"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1LBztbX2SthtY9ewmQermHogRV2UD7wf7oE6cUfs94qA",
+          "mode": "list",
+          "cachedResultName": "examenn8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LBztbX2SthtY9ewmQermHogRV2UD7wf7oE6cUfs94qA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1LBztbX2SthtY9ewmQermHogRV2UD7wf7oE6cUfs94qA/edit#gid=0"
+        },
+        "options": {}
+      },
+      "alwaysOutputData": true,
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -448,
+        1408
+      ],
+      "id": "98ab82ff-9f3e-43e7-abfd-2edc0b7db272",
+      "name": "Buscar Candidato en Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gp2G54IJmMuYW7Nx",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=Candidato: {{ $json.Nombre_postulante }}\nVacante: {{ $json['Vacante '] }}\n\nCompatibilidad: {{ $json['Porcentaje de aprobación'] }}%\nExperiencia detectada: {{ $json.Cumple_Experiencia ? '3 años' : '2 años' }}\n\nHabilidades:\n{{ $json['Habilidades '].replace(/, /g, '\\n').replace(/,/g, '\\n') }}\n\nEstado:\n{{ String($json.Desición).toUpperCase().replace(/_/g, ' ') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        1408
+      ],
+      "id": "0419b88e-27f0-48dd-9e49-52b684c52367",
+      "name": "Enviar Detalle Candidato1",
+      "webhookId": "8d29f6b2-b64f-44c5-8588-477344549b39",
+      "credentials": {
+        "telegramApi": {
+          "id": "gLtEbWKnzxqOhwIX",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1hq1D_qZ7FGv3gUTiITsfHDKpjQOztHHCh31mYQzUUgA",
+          "mode": "list",
+          "cachedResultName": "Candidatos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hq1D_qZ7FGv3gUTiITsfHDKpjQOztHHCh31mYQzUUgA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hq1D_qZ7FGv3gUTiITsfHDKpjQOztHHCh31mYQzUUgA/edit#gid=0"
+        },
+        "options": {}
+      },
+      "alwaysOutputData": true,
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -672,
+        1616
+      ],
+      "id": "03ff64d1-b647-407c-9ca7-e8c2a5e09b46",
+      "name": "Buscar Pendientes en Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gp2G54IJmMuYW7Nx",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=📋 Candidato Pendiente de Revisión:\n\n• Ticket: {{ $json['Ticket '] }}\n• Nombre: {{ $json.Nombre_postulante }}\n• Vacante: {{ $json['Vacante '] }}\n• Score: {{ $json['Porcentaje de aprobación'] }}%\n• Estado: {{ $json.Desición }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -224,
+        1600
+      ],
+      "id": "84c63429-c6c4-460a-abac-5e383aaa6eb5",
+      "name": "Enviar Lista Pendientes1",
+      "webhookId": "d35133ed-b5d9-4ee7-890c-7db5c5b5a67d",
+      "credentials": {
+        "telegramApi": {
+          "id": "gLtEbWKnzxqOhwIX",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ {\n  \"success\": false,\n  \"error\": \"pdf_no_legible\",\n  \"mensaje\": \"El archivo PDF adjunto no contiene texto legible (posible documento escaneado como imagen sin OCR). Por favor adjunta un documento PDF con texto seleccionable.\"\n} }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        224
+      ],
+      "id": "13bd8fcd-0196-42b3-80e2-d65df011702b",
+      "name": "Respuesta PDF No Legible"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8a47446e-0774-4532-b477-c4d3c1aab630",
+              "name": "busqueda",
+              "value": "={{ $('Telegram Trigger1').item.json.message.text.trim().split(/\\s+/)[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "df79bf39-d15d-419f-bf58-7af16ad8e093",
+              "name": "fecha",
+              "value": "={{ $('Telegram Trigger1').item.json.message.text.trim().split(/\\s+/)[2] }}",
+              "type": "string"
+            },
+            {
+              "id": "3cc4e627-5624-4d90-b85a-d1045e9970b6",
+              "name": "hora",
+              "value": "={{ $('Telegram Trigger1').item.json.message.text.trim().split(/\\s+/)[3] }}",
+              "type": "string"
+            },
+            {
+              "id": "9039596e-92bd-4e0b-a7b2-b6c79f751cba",
+              "name": "modalidad",
+              "value": "={{ $('Telegram Trigger1').item.json.message.text.trim().split(/\\s+/)[4] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -672,
+        1872
+      ],
+      "id": "b445d6a0-3b0b-4b77-88b9-a6cab3dc861e",
+      "name": "Extraer Decision"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1hq1D_qZ7FGv3gUTiITsfHDKpjQOztHHCh31mYQzUUgA",
+          "mode": "list",
+          "cachedResultName": "Candidatos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hq1D_qZ7FGv3gUTiITsfHDKpjQOztHHCh31mYQzUUgA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hq1D_qZ7FGv3gUTiITsfHDKpjQOztHHCh31mYQzUUgA/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -448,
+        1872
+      ],
+      "id": "58d706b8-af24-4d33-b1e5-fd477916febc",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gp2G54IJmMuYW7Nx",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "3e141b5b-9922-44fe-b7ff-6a5e0ec93ce4",
+              "leftValue": "={{ $json['Desición'] }}",
+              "rightValue": "PRESELECCIONAR",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "8d7608f6-218a-4ea2-8cc5-0e79591acdc3",
+              "leftValue": "={{ $json.Ticket }}",
+              "rightValue": "={{ $('Extraer Decision').item.json.busqueda }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        -224,
+        1872
+      ],
+      "id": "8f9f2051-d6d4-425a-899a-383a99bba291",
+      "name": "Filter",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=Entrevista programada\n\nticket:{{ $json.Ticket }}\nCandidato: {{ $json.Nombre_postulante }}\nVacante:{{ $json.Vacante }}\nFecha:{{ $('Extraer Decision').item.json.fecha }}\nHora:{{ $('Extraer Decision').item.json.hora }}\nModalidad:{{ $('Extraer Decision').item.json.modalidad }}\n\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        496,
+        1680
+      ],
+      "id": "429519fe-58cf-434a-985a-982396d9ceda",
+      "name": "Send a text message",
+      "webhookId": "5dec213e-6e63-4196-9b8d-9fa819acd777",
+      "credentials": {
+        "telegramApi": {
+          "id": "gLtEbWKnzxqOhwIX",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "fe980088-da79-4516-8205-cb0ea7c0dae5",
+              "leftValue": "={{ $json.Vacio }}",
+              "rightValue": "=vacio",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        224,
+        1632
+      ],
+      "id": "05ddf03c-2ba2-4adc-b85d-d347224c39b8",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "No puede Agendar una Entrevista",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        1520
+      ],
+      "id": "e9cb00d2-f57e-4f3b-9cd1-cb34625b2721",
+      "name": "Send a text message1",
+      "webhookId": "5e4c3d34-61bb-44b9-89c7-1e48505b69cb",
+      "credentials": {
+        "telegramApi": {
+          "id": "gLtEbWKnzxqOhwIX",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d45d6160-30a9-416a-80cb-472790eb34a2",
+              "name": "Vacio",
+              "value": "={{ $(\"Filter\").all().length === 0 ? \"vacio\" : \"con_datos\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        0,
+        1872
+      ],
+      "id": "23293292-ac77-4309-83d4-5cdd3f373c50",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f0b56329-dab5-4a3d-bc83-074516a581e7",
+              "name": "busqueda",
+              "value": "={{ $('Telegram Trigger1').item.json.message.text.replace('/aprobado', '').trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -688,
+        2096
+      ],
+      "id": "ffc5cb1b-8830-44cf-a95b-8c09a614e9de",
+      "name": "Extraer ticket"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1hq1D_qZ7FGv3gUTiITsfHDKpjQOztHHCh31mYQzUUgA",
+          "mode": "list",
+          "cachedResultName": "Candidatos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hq1D_qZ7FGv3gUTiITsfHDKpjQOztHHCh31mYQzUUgA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hq1D_qZ7FGv3gUTiITsfHDKpjQOztHHCh31mYQzUUgA/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -448,
+        2096
+      ],
+      "id": "ccec2543-a485-482e-88bd-130211bde9a0",
+      "name": "Get row(s) in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gp2G54IJmMuYW7Nx",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "54925d41-0fab-4855-b2dc-0cc1956e2fdf",
+              "leftValue": "={{ $json.Ticket }}",
+              "rightValue": "={{ $('Extraer ticket').item.json.busqueda }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        -224,
+        2096
+      ],
+      "id": "275f396d-bde8-41e3-8d59-269796d55c2b",
+      "name": "Filter1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1hq1D_qZ7FGv3gUTiITsfHDKpjQOztHHCh31mYQzUUgA",
+          "mode": "list",
+          "cachedResultName": "Candidatos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hq1D_qZ7FGv3gUTiITsfHDKpjQOztHHCh31mYQzUUgA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hq1D_qZ7FGv3gUTiITsfHDKpjQOztHHCh31mYQzUUgA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Ticket": "={{ $('Filter1').item.json.Ticket }}",
+            "Nombre_postulante": "={{ $('Filter1').item.json.Nombre_postulante }}",
+            "Correo": "={{ $('Filter1').item.json.Correo }}",
+            "Numero_contacto": "={{ $('Filter1').item.json.Numero_contacto }}",
+            "Vacante": "={{ $('Filter1').item.json.Vacante }}",
+            "Desición": "SELECCIONADO",
+            "Resumen_IA": "={{ $('Filter1').item.json.Resumen_IA }}",
+            "Porcentaje de aprobación": "={{ $('Filter1').item.json['Porcentaje de aprobación'] }}",
+            "Observaciones_IA": "={{ $('Filter1').item.json.Observaciones_IA }}",
+            "Prioridad": "={{ $('Filter1').item.json.Prioridad }}",
+            "Recomendación": "={{ $('Filter1').item.json['Recomendación'] }}",
+            "Cumple_Experiencia": "={{ $('Filter1').item.json.Cumple_Experiencia }}",
+            "Habilidades": "={{ $('Filter1').item.json.Habilidades }}",
+            "Nivel_educativo": "={{ $('Filter1').item.json.Nivel_educativo }}",
+            "Preguntas_postulante": "={{ $('Filter1').item.json.Preguntas_postulante }}",
+            "Fecha_Postulacion": "={{ $('Filter1').item.json.Fecha_Postulacion }}"
+          },
+          "matchingColumns": [
+            "Ticket"
+          ],
+          "schema": [
+            {
+              "id": "Ticket",
+              "displayName": "Ticket",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Nombre_postulante",
+              "displayName": "Nombre_postulante",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Correo",
+              "displayName": "Correo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Numero_contacto",
+              "displayName": "Numero_contacto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Vacante",
+              "displayName": "Vacante",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Desición",
+              "displayName": "Desición",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Resumen_IA",
+              "displayName": "Resumen_IA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Observaciones_IA",
+              "displayName": "Observaciones_IA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Porcentaje de aprobación",
+              "displayName": "Porcentaje de aprobación",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Prioridad",
+              "displayName": "Prioridad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Recomendación",
+              "displayName": "Recomendación",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cumple_Experiencia",
+              "displayName": "Cumple_Experiencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Habilidades",
+              "displayName": "Habilidades",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nivel_educativo",
+              "displayName": "Nivel_educativo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Preguntas_postulante",
+              "displayName": "Preguntas_postulante",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Fecha_Postulacion",
+              "displayName": "Fecha_Postulacion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        576,
+        2016
+      ],
+      "id": "fba6dc8c-7c26-47f9-b96f-3c0926237640",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gp2G54IJmMuYW7Nx",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "24e0e545-0b79-4863-b774-0caf2819f891",
+              "leftValue": "={{ $json.Vacio }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        160,
+        2096
+      ],
+      "id": "5a5e22b8-4047-4cba-b972-672393a1bd43",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d45d6160-30a9-416a-80cb-472790eb34a2",
+              "name": "Vacio",
+              "value": "={{ $(\"Filter1\").all().length === 0 ? \"vacio\" : \"con_datos\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -32,
+        2096
+      ],
+      "id": "64ae5136-33b4-47ae-8584-9707cd347dc5",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "El ticket no existe",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        464,
+        1888
+      ],
+      "id": "8b9a2394-8db0-4ae3-bfa1-cbe6f0632f83",
+      "name": "Send a text message2",
+      "webhookId": "5e4c3d34-61bb-44b9-89c7-1e48505b69cb",
+      "credentials": {
+        "telegramApi": {
+          "id": "gLtEbWKnzxqOhwIX",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Filter1').item.json['Desición'].trim().toUpperCase() }}",
+                    "rightValue": "PRESELECCIONAR",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "bbf932ae-01fc-4eb7-9b36-7b54eb391a2d"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Confirmado"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "a8521b0a-0b2a-4720-8d5a-8529296a3658",
+                    "leftValue": "={{ $('Filter1').item.json['Desición'].trim().toUpperCase() }}",
+                    "rightValue": "PRESELECCIONAR",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEquals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "No confirmado"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        352,
+        2096
+      ],
+      "id": "587ccec1-5328-4029-b437-74bc59de8bc4",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "Su proceso no ha avanzado ",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        560,
+        2192
+      ],
+      "id": "dd043c12-5b71-49c8-99cd-3999d75b007f",
+      "name": "Send a text message3",
+      "webhookId": "b4b067db-775e-453a-950f-0e4d59b957f8",
+      "credentials": {
+        "telegramApi": {
+          "id": "gLtEbWKnzxqOhwIX",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "El proceso ha terminado con exito",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        768,
+        1968
+      ],
+      "id": "59e25498-898c-441c-94d4-338277cbd95d",
+      "name": "Send a text message4",
+      "webhookId": "75751fec-1dc9-434a-87fd-54835ab33894",
+      "credentials": {
+        "telegramApi": {
+          "id": "gLtEbWKnzxqOhwIX",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f0b56329-dab5-4a3d-bc83-074516a581e7",
+              "name": "busqueda",
+              "value": "={{ $('Telegram Trigger1').item.json.message.text.replace('/RUBRICA', '').trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -688,
+        2384
+      ],
+      "id": "b90f14b7-5af4-47aa-a493-a56576c7b4a5",
+      "name": "Extraer ticket1"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1hq1D_qZ7FGv3gUTiITsfHDKpjQOztHHCh31mYQzUUgA",
+          "mode": "list",
+          "cachedResultName": "Candidatos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hq1D_qZ7FGv3gUTiITsfHDKpjQOztHHCh31mYQzUUgA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hq1D_qZ7FGv3gUTiITsfHDKpjQOztHHCh31mYQzUUgA/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -448,
+        2384
+      ],
+      "id": "0eaa2e80-a323-4fd7-848b-a81be1016de8",
+      "name": "Get row(s) in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "gp2G54IJmMuYW7Nx",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "54925d41-0fab-4855-b2dc-0cc1956e2fdf",
+              "leftValue": "={{ $json['Ticket '] }}",
+              "rightValue": "={{ $('Extraer ticket1').item.json.busqueda }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        -208,
+        2384
+      ],
+      "id": "18af9bf7-5691-4ce4-bf43-e899c1267ab0",
+      "name": "Filter2",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0f5b367e-9481-466e-9ecb-a3c4f46b84f1",
+              "name": "nombre",
+              "value": "={{ $json.Nombre_postulante }}",
+              "type": "string"
+            },
+            {
+              "id": "88fa841d-c02e-4ece-a250-449f3f0b5da4",
+              "name": "vacante",
+              "value": "={{ $json['Vacante '] }}",
+              "type": "string"
+            },
+            {
+              "id": "31eea94a-e412-42b0-ad3b-2daa6a009374",
+              "name": "Resumen de experiencia y habilidades",
+              "value": "=Resumen: {{ $json.Resumen_IA }}\n\nHabilidades: {{ $json['Habilidades '] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -16,
+        2384
+      ],
+      "id": "691eeb99-839e-4b3b-bc54-ffa985ac9a13",
+      "name": "Información extraida"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Eres un entrevistador de vacantes de software experto, necesito que hagas:\n\n3 preguntas tecnicas avanzadas basado en las tecnologias y proyectos declarados en la cv\n\n2 preguntas de validación sobre requisitos indispensables de la vacante que no fueron evidenciados explícitamente en su perfil.\n\nY un criterio de respuesta esperada para cada pregunta (diferenciando respuesta básica vs. respuesta avanzada).\n\n\nPara ello esta es la información que tienes:\n\nVacante: {{ $json.vacante }}\n\nResumen de experiencia y habilidades: {{ $json['Resumen de experiencia y habilidades'] }}\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        2384
+      ],
+      "id": "71a97712-f1ed-4224-a8f3-89965893aa66",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        224,
+        2656
+      ],
+      "id": "deb282cf-1eb6-47cb-9b5c-e4d0a7e7ccb5",
+      "name": "OpenRouter Chat Model2",
+      "credentials": {
+        "openRouterApi": {
+          "id": "EEKw0Co0CqoC4uz5",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.output }}",
+        "schemaType": "fromJson",
+        "jsonSchemaExample": "[{\n  \"preguntas tecnicas 1\": \"Pregunta tecnica 1\",\n  \"preguntas tecnicas 2\": \"Pregunta tecnica 2\",\n  \"preguntas tecnicas 3\": \"Pregunta tecnica 3\"\n  },{\n  \"Preguntas de validacion\": {\n    \"1\": \"Pregunta de validación 1\",\n    \"2\": \"pregunta de validacion 2\"\n  }},{\n  \"Criterios de respuesta (tecnicas) basicas\": {\n \"criterio de respuesta basico: preguntas tecnicas 1\": \" respuesta basica 1\",\n  \"criterio de respuesta basico: preguntas tecnicas 2\": \" respuesta basica 2\",\n  \"criterio de respuesta basico: preguntas tecnicas 3\": \" respuesta basica 3\"\n  }},{\n\"Criterios de respuesta (tecnicas) avanzadas\": {\n \"criterio de respuesta avanzadas: preguntas tecnicas 1\": \" respuesta avanzada 1\",\n  \"criterio de respuesta avanzadas: preguntas tecnicas 2\": \" respuesta avanzada 2\",\n  \"criterio de respuesta avanzadas: preguntas tecnicas 3\": \" respuesta avanzada 3\"\n  }},{\n\"Criterios de respuesta (validación) basicas\": {\n \"criterio de respuesta basico: preguntas validación 1\": \" respuesta basica 1\",\n  \"criterio de respuesta basico: preguntas validación 2\": \" respuesta basica 2\"\n  }},{\n\"Criterios de respuesta (validación) avanzadas\": {\n \"criterio de respuesta validación: preguntas tecnicas 1\": \" respuesta avanzada 1\",\n  \"criterio de respuesta validación: preguntas tecnicas 2\": \" respuesta avanzada 2\"\n  }}]\n    ",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2,
+      "position": [
+        576,
+        2384
+      ],
+      "id": "2ec40f9f-4e53-409f-89c5-834fb8c8a2c7",
+      "name": "Information Extractor1"
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nemotron-nano-12b-v2-vl:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        576,
+        2624
+      ],
+      "id": "0f1dee4e-cc49-42da-a5b6-bf9041b49df4",
+      "name": "OpenRouter Chat Model3",
+      "credentials": {
+        "openRouterApi": {
+          "id": "EEKw0Co0CqoC4uz5",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "text": "=Nombre del postulante:{{ $('Filter2').item.json.Nombre_postulante }}\n\nPreguntas por hacer:\n\nTecnicas avanzadas:\n\nPregunta 1:{{ $json.output[0]['preguntas tecnicas 1'] }}\nRespuesta basica esperada:{{ $json.output[0]['Criterios de respuesta (tecnicas) basicas']['criterio de respuesta basico: preguntas tecnicas 1'] }}\nrespuesta avanzada esperada:{{ $json.output[0]['Criterios de respuesta (tecnicas) avanzadas']['criterio de respuesta avanzadas: preguntas tecnicas 1'] }}\n\nPregunta 2:{{ $json.output[0]['preguntas tecnicas 2'] }}\nRespuesta basica esperada:{{ $json.output[0]['Criterios de respuesta (tecnicas) basicas']['criterio de respuesta basico: preguntas tecnicas 2'] }}\nrespuesta avanzada esperada:{{ $json.output[0]['Criterios de respuesta (tecnicas) avanzadas']['criterio de respuesta avanzadas: preguntas tecnicas 2'] }}\n\nPregunta 3:{{ $json.output[0]['preguntas tecnicas 3'] }}\nRespuesta basica esperada:{{ $json.output[0]['Criterios de respuesta (tecnicas) basicas']['criterio de respuesta basico: preguntas tecnicas 3'] }}\nrespuesta avanzada esperada:{{ $json.output[0]['Criterios de respuesta (tecnicas) avanzadas']['criterio de respuesta avanzadas: preguntas tecnicas 3'] }}\n\nValidación:\n\nPregunta1:{{ $json.output[0]['Preguntas de validacion']['1'] }}\nRespuesta basica esperada:{{ $json.output[0]['Criterios de respuesta (validación) basicas']['criterio de respuesta basico: preguntas validación 1'] }}\nrespuesta avanzada esperada:{{ $json.output[0]['Criterios de respuesta (validación) avanzadas']['criterio de respuesta validación: preguntas tecnicas 1'] }}\n\nPregunta2:{{ $json.output[0]['Preguntas de validacion']['2'] }}\nRespuesta basica esperada:{{ $json.output[0]['Criterios de respuesta (validación) avanzadas']['criterio de respuesta validación: preguntas tecnicas 1'] }}\nrespuesta avanzada esperada:{{ $json.output[0]['Criterios de respuesta (validación) avanzadas']['criterio de respuesta validación: preguntas tecnicas 2'] }}\n ",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        960,
+        2384
+      ],
+      "id": "878e7eca-cc11-4d8f-8535-c924a592bfa2",
+      "name": "Send a text message5",
+      "webhookId": "b4b067db-775e-453a-950f-0e4d59b957f8",
+      "credentials": {
+        "telegramApi": {
+          "id": "gLtEbWKnzxqOhwIX",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook Postulación": {
+      "main": [
+        [
+          {
+            "node": "Preparar Postulación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Postulación": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clasificar Vacante": {
+      "main": [
+        [
+          {
+            "node": "Requisitos Backend Developer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Requisitos Frontend Developer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Requisitos Data Analyst",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Requisitos DevOps Engineer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Requisitos QA Engineer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Requisitos Respaldo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Requisitos Backend Developer": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Requisitos Frontend Developer": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Requisitos Data Analyst": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Requisitos DevOps Engineer": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Requisitos QA Engineer": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Requisitos Respaldo": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consolidar Candidato": {
+      "main": [
+        [
+          {
+            "node": "Guardar Candidato en Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar Candidato en Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Respuesta Postulación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respuesta Postulación": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information Extractor": {
+      "main": [
+        [
+          {
+            "node": "Consolidar Candidato",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Respuesta PDF No Legible",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Clasificar Vacante",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Obtener Candidatos": {
+      "main": [
+        [
+          {
+            "node": "Leer Candidatos de Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer Candidatos de Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Agrupar Candidatos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agrupar Candidatos": {
+      "main": [
+        [
+          {
+            "node": "Respuesta Candidatos GET",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtrar Candidato": {
+      "main": [
+        [
+          {
+            "node": "Enviar Detalle Candidato1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtrar Pendientes": {
+      "main": [
+        [
+          {
+            "node": "Enviar Lista Pendientes1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Clasificar Comando1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clasificar Comando1": {
+      "main": [
+        [
+          {
+            "node": "Extraer ID Candidato1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Buscar Pendientes en Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extraer Decision",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extraer ticket",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extraer ticket1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer ID Candidato1": {
+      "main": [
+        [
+          {
+            "node": "Buscar Candidato en Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Candidato en Google Sheets1": {
+      "main": [
+        [
+          {
+            "node": "Filtrar Candidato",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Pendientes en Google Sheets1": {
+      "main": [
+        [
+          {
+            "node": "Filtrar Pendientes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer Decision": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer ticket": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a text message4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer ticket1": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet2": {
+      "main": [
+        [
+          {
+            "node": "Filter2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter2": {
+      "main": [
+        [
+          {
+            "node": "Información extraida",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Información extraida": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information Extractor1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "9c10d777-bdbc-4ab8-b6f2-1341420c2e49",
+  "meta": {
+    "instanceId": "db366845838060a02d85ce3d3f6ea5751aabfb3bb2ea4381963acbd0b8ec85e8"
+  },
+  "nodeGroups": [],
+  "id": "8H5NxImjs4jBQPvv",
+  "tags": []
+}

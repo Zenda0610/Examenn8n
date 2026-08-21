@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalentAI — Gestión de Candidatos</title>
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="candidatos">
+
+  <div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div>
+        <div class="sidebar-header">
+          <div class="brand-box">
+            <div class="brand-icon">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <div class="brand-info">
+              <h2>TalentAI</h2>
+              <span>Selección Inteligente</span>
+            </div>
+          </div>
+          <button class="toggle-sidebar-btn" id="sidebar-toggle" title="Contraer/Expandir Menú">
+            <i class="fa-solid fa-angles-left" id="toggle-icon"></i>
+          </button>
+        </div>
+
+        <ul class="sidebar-menu">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">
+              <i class="fa-solid fa-chart-pie"></i>
+              <span class="nav-text">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="candidatos.html" class="nav-link active">
+              <i class="fa-solid fa-users"></i>
+              <span class="nav-text">Candidatos</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="postulacion.html" class="nav-link">
+              <i class="fa-solid fa-user-plus"></i>
+              <span class="nav-text">Nueva Postulación</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="vacantes.html" class="nav-link">
+              <i class="fa-solid fa-briefcase"></i>
+              <span class="nav-text">Vacantes</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="clasificacion.html" class="nav-link">
+              <i class="fa-solid fa-layer-group"></i>
+              <span class="nav-text">Clasificación</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="revisiones.html" class="nav-link">
+              <i class="fa-solid fa-clipboard-check"></i>
+              <span class="nav-text">Revisiones</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="metricas.html" class="nav-link">
+              <i class="fa-solid fa-chart-line"></i>
+              <span class="nav-text">Métricas</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="integraciones.html" class="nav-link">
+              <i class="fa-solid fa-network-wired"></i>
+              <span class="nav-text">Integraciones</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="configuracion.html" class="nav-link">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span class="nav-text">Configuración</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-box">
+          <div class="avatar">RH</div>
+          <div class="user-info">
+            <h4>Elena Rostova</h4>
+            <p>Directora RRHH</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <div class="topbar-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="top-search-input" placeholder="Buscar candidato o habilidad...">
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <button class="icon-btn" id="notif-bell-btn" title="Notificaciones">
+            <i class="fa-regular fa-bell"></i>
+            <span class="notification-badge" id="notif-count">3</span>
+          </button>
+
+          <div class="notification-dropdown" id="notification-dropdown">
+            <div class="notif-header">
+              <h4>Centro de Notificaciones</h4>
+              <button class="btn btn-sm btn-secondary" onclick="markAllNotificationsRead()">Marcar leídas</button>
+            </div>
+            <div class="notif-list" id="notif-list-container"></div>
+          </div>
+
+          <button class="icon-btn" id="theme-toggle-btn" title="Cambiar Tema Dark/Light">
+            <i class="fa-regular fa-moon" id="theme-icon"></i>
+          </button>
+
+          <button class="btn btn-secondary btn-sm" onclick="logout()" title="Cerrar Sesión">
+            <i class="fa-solid fa-right-from-bracket"></i> Salir
+          </button>
+
+          <a href="postulacion.html" class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-plus"></i>
+            <span>Nueva Postulación</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- CONTENT AREA -->
+      <main class="content-area">
+        <div class="section-header">
+          <div>
+            <h1>Gestión de Candidatos</h1>
+            <p>Consulta, filtra y gestiona los perfiles del proceso de selección</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button id="n8n-sync-btn-list" class="btn btn-secondary" onclick="syncCandidatesFromN8n(true)"><i class="fa-solid fa-arrows-rotate"></i> Sincronizar Google Sheets</button>
+            <a href="postulacion.html" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Nueva Postulación</a>
+          </div>
+        </div>
+
+        <!-- Filter Toolbar -->
+        <div class="filters-bar">
+          <div class="filter-group">
+            <input type="text" id="cand-search-filter" placeholder="Buscar por nombre, email..." oninput="filterCandidatesTable()">
+          </div>
+          <div class="filter-group">
+            <select id="cand-vacancy-filter" onchange="filterCandidatesTable()">
+              <option value="">Todas las vacantes</option>
+              <option value="Backend Developer">Backend Developer</option>
+              <option value="Frontend Developer">Frontend Developer</option>
+              <option value="Data Analyst">Data Analyst</option>
+              <option value="DevOps Engineer">DevOps Engineer</option>
+              <option value="QA Engineer">QA Engineer</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <select id="cand-status-filter" onchange="filterCandidatesTable()">
+              <option value="">Todos los estados</option>
+              <option value="PENDIENTE_REVISION">Pendiente de revisión</option>
+              <option value="REVISION_MANUAL">Revisión manual</option>
+              <option value="PRESELECCIONADO">Preseleccionado</option>
+              <option value="EN_ENTREVISTA">En entrevista</option>
+              <option value="FINALIZADO">Finalizado / Rechazado</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <select id="cand-score-filter" onchange="filterCandidatesTable()">
+              <option value="">Cualquier Score</option>
+              <option value="high">Score Alto (>=80)</option>
+              <option value="mid">Score Medio (60-79)</option>
+              <option value="low">Score Bajo (<60)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Main Candidates Table -->
+        <div class="card">
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Candidato</th>
+                  <th>Vacante</th>
+                  <th>Experiencia</th>
+                  <th>Educación</th>
+                  <th>Score IA</th>
+                  <th>Estado</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="candidates-full-table">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pagination-bar">
+            <span id="pagination-info">Mostrando candidatos</span>
+            <div style="display:flex; gap:6px;">
+              <button class="btn btn-sm btn-secondary" disabled><i class="fa-solid fa-chevron-left"></i> Anterior</button>
+              <button class="btn btn-sm btn-primary">1</button>
+              <button class="btn btn-sm btn-secondary" disabled>Siguiente <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- CANDIDATE DETAIL MODAL -->
+  <div class="modal-overlay" id="candidate-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <h2 id="modal-cand-name">Laura Gómez</h2>
+          <span style="font-size:0.85rem; color:var(--text-muted);" id="modal-cand-subtitle">CAND-001 — Backend Developer</span>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('candidate-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="detail-grid">
+          <div>
+            <div class="score-circle-box">
+              <div class="score-gauge" id="modal-score-gauge" style="--score-pct: 87;">
+                <div class="score-gauge-val" id="modal-score-val">87%</div>
+              </div>
+              <h4 id="modal-score-label">Compatibilidad Alta</h4>
+              <p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;" id="modal-score-desc">
+                Cumple la mayoría de los requisitos técnicos definidos para la vacante.
+              </p>
+            </div>
+
+            <div style="margin-top:20px; font-size:0.88rem;">
+              <h4 style="margin-bottom:10px;">Información Personal</h4>
+              <p><strong>Correo:</strong> <span id="modal-cand-email">laura.gomez@email.com</span></p>
+              <p style="margin:4px 0;"><strong>Teléfono:</strong> <span id="modal-cand-phone">+57 300 123 4567</span></p>
+              <p><strong>Fecha Postulación:</strong> <span id="modal-cand-date">10/08/2026</span></p>
+            </div>
+          </div>
+
+          <div>
+            <div style="margin-bottom:20px;">
+              <h4>Resumen Generado por IA</h4>
+              <p style="font-size:0.88rem; background:var(--slate-bg); padding:12px; border-radius:var(--radius-md); margin-top:6px;" id="modal-ai-summary"></p>
+            </div>
+
+            <div style="margin-bottom:20px;">
+              <h4>Habilidades Detectadas</h4>
+              <div class="skills-tags" id="modal-skills-list"></div>
+            </div>
+
+            <div style="margin-bottom:20px;">
+              <h4>Comparativa de Requisitos de la Vacante</h4>
+              <div id="modal-checklist-container"></div>
+            </div>
+
+            <div style="margin-bottom:20px;">
+              <h4>Preguntas Sugeridas para Entrevista</h4>
+              <ul style="padding-left:18px; font-size:0.85rem; line-height:1.6;" id="modal-questions-list"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--slate-border); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+          <div>
+            <button class="btn btn-secondary btn-sm" onclick="openPdfModal()"><i class="fa-solid fa-file-pdf"></i> Ver Hoja de Vida</button>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-success btn-sm" onclick="changeCandidateStatusFromModal('PRESELECCIONADO')"><i class="fa-solid fa-check"></i> Preseleccionar</button>
+            <button class="btn btn-warning btn-sm" onclick="changeCandidateStatusFromModal('REVISION_MANUAL')"><i class="fa-solid fa-magnifying-glass"></i> Solicitar Revisión</button>
+            <button class="btn btn-secondary btn-sm" onclick="closeModal('candidate-modal')">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF VIEWER MODAL SIMULATOR -->
+  <div class="modal-overlay" id="pdf-modal">
+    <div class="modal-box" style="max-width:700px;">
+      <div class="modal-header">
+        <h3>Vista Previa del Documento PDF</h3>
+        <button class="modal-close-btn" onclick="closeModal('pdf-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" style="text-align:center;">
+        <div style="background:#334155; color:#FFF; padding:40px 20px; border-radius:var(--radius-md);">
+          <i class="fa-solid fa-file-pdf" style="font-size:4rem; color:#EF4444; margin-bottom:16px;"></i>
+          <h3>Hoja_de_Vida_Candidato.pdf</h3>
+          <p style="font-size:0.85rem; color:#94A3B8; margin-top:8px;">
+            Documento procesado correctamente por el OCR y parsed por el modelo de IA.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared JS Engine -->
+  <script src="app.js"></script>
+</body>
+</html>
