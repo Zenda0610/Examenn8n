@@ -28,7 +28,6 @@ function saveN8nConfig(config) {
 }
 
 /**
-/**
  * Helper to read a File object as a Base64 Data URL string.
  */
 function readFileAsBase64(file) {

@@ -1,0 +1,20 @@
+{
+  "name": "talentai-ats",
+  "version": "2.0.0",
+  "description": "Sistema Inteligente de Selección y Preselección de Candidatos con n8n e Inteligencia Artificial",
+  "main": "app.js",
+  "scripts": {
+    "test": "node --check app.js"
+  },
+  "keywords": [
+    "ats",
+    "reclutamiento",
+    "n8n",
+    "ia",
+    "automatizacion",
+    "google-sheets",
+    "telegram-bot"
+  ],
+  "author": "David Leonardo Martínez",
+  "license": "MIT"
+}

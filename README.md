@@ -6,6 +6,7 @@ TalentAI es una plataforma web moderna e inteligente diseñada para optimizar lo
 ![n8n Integrated](https://img.shields.io/badge/n8n-Webhooks-FF6D5A?style=for-the-badge&logo=n8n)
 ![Google Sheets](https://img.shields.io/badge/Google%20Sheets-Database-34A853?style=for-the-badge&logo=googlesheets)
 ![Telegram Bot](https://img.shields.io/badge/Telegram-HR%20Bot-26A5E4?style=for-the-badge&logo=telegram)
+[![Author](https://img.shields.io/badge/Author-David%20Leonardo%20Martínez-181717?style=for-the-badge&logo=github)](https://github.com/Zenda0610)
 
 ---
 
@@ -270,19 +271,22 @@ una aplicación desarrollada con Spring Boot.
 ## 📁 Estructura del Proyecto
 
 ```text
-├── index.html          # Dashboard principal con KPIs y gráficos dinámicos
-├── candidatos.html     # Gestión de candidatos con filtros y botón de sincronización
-├── candidato.html      # Portal interactivo del candidato
-├── postulacion.html    # Formulario de postulación y adjunto de PDF
-├── configuracion.html  # Panel de configuración de URLs de Webhook n8n
-├── revisiones.html     # Cola de revisión manual para Recursos Humanos
-├── vacantes.html       # Parametrización de requisitos por vacante
-├── metricas.html       # Gráficos de distribución de scores y postulaciones
-├── integraciones.html  # Diagrama interactivo y consola de pruebas webhook
-├── login.html          # Control de acceso por roles (RRHH / Candidato)
-├── app.js              # Lógica compartida, motor de sincronización y Chart.js
-├── style.css           # Sistema de diseño CSS Vanilla y temas
-└── README.md           # Documentación del proyecto
+├── index.html              # Dashboard principal con KPIs y gráficos dinámicos
+├── candidatos.html         # Gestión de candidatos con filtros y botón de sincronización
+├── candidato.html          # Portal interactivo del candidato
+├── postulacion.html        # Formulario de postulación y adjunto de PDF
+├── configuracion.html      # Panel de configuración de URLs de Webhook n8n
+├── revisiones.html         # Cola de revisión manual para Recursos Humanos
+├── vacantes.html           # Parametrización de requisitos por vacante
+├── metricas.html           # Gráficos de distribución de scores y postulaciones
+├── integraciones.html      # Diagrama interactivo y consola de pruebas webhook
+├── login.html              # Control de acceso por roles (RRHH / Candidato)
+├── app.js                  # Lógica compartida, motor de sincronización y Chart.js
+├── style.css               # Sistema de diseño CSS Vanilla y temas
+├── talentai-workflow.json  # Flujo exportado de n8n listo para importar (59 nodos)
+├── package.json            # Metadatos del proyecto y script de verificación
+├── .gitignore              # Exclusión de temporales y configuraciones locales
+└── README.md               # Documentación del proyecto
 ```
 
 ---
@@ -291,12 +295,20 @@ una aplicación desarrollada con Spring Boot.
 
 No se requiere instalación de servidores ni dependencias de Node.js en el cliente. Es una aplicación web nativa (HTML/JS/CSS).
 
-1. **Clonar o descargar el proyecto:**
+1. **Clonar el proyecto:**
    ```bash
-   git clone https://github.com/tu-usuario/TalentAI.git
+   git clone https://github.com/Zenda0610/Examenn8n.git
+   cd Examenn8n
    ```
-2. **Abrir en el navegador:**
-   - Abre `index.html` o `login.html` directamente en tu navegador preferido.
+2. **Importar el Flujo en n8n:**
+   - Abre tu instancia de [n8n](https://n8n.io/).
+   - Ve al menú superior derecho de workflows y selecciona **Import from File...**
+   - Selecciona el archivo `talentai-workflow.json`.
+   - Configura tus credenciales para Google Sheets, OpenRouter y Telegram en los nodos correspondientes.
+   - Activa el workflow.
+
+3. **Abrir en el navegador:**
+   - Abre `index.html` o `login.html` directamente en tu navegador.
 
 ---
 
@@ -362,3 +374,8 @@ PENDIENTE DE REVISIÓN
 
 ### 📄 Licencia
 Este proyecto se distribuye bajo la licencia MIT.
+
+---
+
+**Autor:** David Leonardo Martínez ([@Zenda0610](https://github.com/Zenda0610))  
+*Desarrollador de Software | Especializado en Desarrollo Web Full Stack y Automatización*
